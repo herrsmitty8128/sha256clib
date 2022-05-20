@@ -40,7 +40,7 @@ const uint32_t constants[64] = {
 #define ROR32(N,BITS) ((N >> BITS)|(N << (32 - BITS)))
 
 /**
- * @brief Prints a sha-256 digest to stdio in hexidecimal format.
+ * @brief Prints a binary sha-256 digest to stdio in hexidecimal format.
  * 
  * @param digest A pointer to an array of 8 32-bit unsigned words containing the digest to be printed.
  */
@@ -82,7 +82,7 @@ void hex2Digest(char* str, uint32_t* digest){
 }
 
 /**
- * @brief Compares two sha-256 digests for equality.
+ * @brief Compares two binary sha-256 digests for equality.
  * 
  * @param digest1 The first digest to compare.
  * @param digest2 The second digest to compare.
