@@ -42,7 +42,7 @@ const uint32_t constants[64] = {
 /**
  * @brief Prints a sha-256 digest to stdio in hexidecimal format.
  * 
- * @param digest A poniter to an array of 8 32-bit unsigned words containing the digest to be printed.
+ * @param digest A pointer to an array of 8 32-bit unsigned words containing the digest to be printed.
  */
 void printDigestAsHex(uint32_t* digest){
     for(int i = 0; i < 8; i++){

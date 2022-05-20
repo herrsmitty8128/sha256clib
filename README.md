@@ -14,18 +14,6 @@
 
 *sha256clib* is licensed under the Boost Software License - Version 1.0 - August 17th, 2003.
 
-## Interface
-
-void printDigestAsHex(uint32_t* digest);
-
-void digest2Hex(uint32_t* digest, char* str);
-
-void hex2Digest(char* str, uint32_t* digest);
-
-bool digestsAreEqual(uint32_t* digest1, uint32_t* digest2);
-
-bool calcSHA256(uint8_t* buffer, size_t byteCount, uint32_t* digest);
-
 ## Resources
 
 * https://sha256algorithm.com/
