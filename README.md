@@ -1,20 +1,20 @@
 # sha256clib
 
-## Description
+*sha256clib* is a library of functions written in C to calculate and manipulate SHA-256 digests. It includes functions to perform each of the following actions:
 
-*sha256clib* is a library of functions writting in C to calculate and manipulate SHA-256 digests. It includes functions to perform each of the following actions:
-
-* Printing a digest to stdio in hexidecimal format.
-* Converting a digest to a null terminated string in hexidecimal format.
-* Converting a null terminated string in hexidecimal format to a digest in binary format.
-* Comparing two binary digests for equality.
-* Calculating a sha-256 digest from a data buffer.
+* Calculating a sha-256 digest from a data buffer
+* Printing a digest to stdio in hexidecimal format
+* Converting a digest to a null terminated string in hexidecimal format
+* Converting a null terminated string in hexidecimal format to a digest in binary format
+* Comparing two binary digests for equality
 
 ## License
 
 *sha256clib* is licensed under the Boost Software License - Version 1.0 - August 17th, 2003.
 
 ## Resources
+
+The following are suggested resources for anyone interested in understanding how the sah-256 algorithm works.\:
 
 * https://sha256algorithm.com/
 * https://blog.boot.dev/cryptography/how-sha-2-works-step-by-step-sha-256/
