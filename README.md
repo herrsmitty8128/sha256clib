@@ -25,3 +25,10 @@ void hex2Digest(char* str, uint32_t* digest);
 bool digestsAreEqual(uint32_t* digest1, uint32_t* digest2);
 
 bool calcSHA256(uint8_t* buffer, size_t byteCount, uint32_t* digest);
+
+## Resources
+
+* https://sha256algorithm.com/
+* https://blog.boot.dev/cryptography/how-sha-2-works-step-by-step-sha-256/
+* https://medium.com/a-42-journey/implementing-the-sha256-and-md5-hash-functions-in-c-78c17e657794
+
