@@ -17,7 +17,7 @@ Please note the following before attempting to use *sha256clib* :
 * *sha256clib* was not designed or tested for muliprocessing.
 * *sha256clib* was designed for use and tested on *little-endian* machines only.
 * A sha-256 digest is always an array of 8 32-bit integers (for example, *uint32_t digest[8];*)
-* The null terminated hexidecimal string representation of a sha-256 digest is always a array of 64 bytes terminated by an additional null character, for a total of 65 bytes.
+* The null terminated hexidecimal string representation of a sha-256 digest is always an array of 64 bytes terminated by an additional null character, for a total of 65 bytes.
 
 ## License
 
