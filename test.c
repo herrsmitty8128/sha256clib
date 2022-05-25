@@ -31,9 +31,9 @@ int main(){
         printf("Calculated digest: ");
         printDigestAsHex(digest);
         printf("\n");
-        digest2Hex(digest, str);
+        digestToHex(digest, str);
         printf("Digest as hex:     %s\n",str);
-        hex2Digest(str, digest2);
+        hexToDigest(str, digest2);
         if(digestsAreEqual(digest, digest2)){
             printf("hex2Digest test:   SUCCESSFUL\n");
         }

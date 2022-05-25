@@ -14,16 +14,6 @@
 #error Can not compile sha256 library. This is not a little endian machine.
 #endif
 
-/// Initialize hash value constants: The first 32 bits of the fractional parts of the square roots of the first 8 primes 2 through 19.
-#define H0 0x6a09e667
-#define H1 0xbb67ae85
-#define H2 0x3c6ef372
-#define H3 0xa54ff53a
-#define H4 0x510e527f
-#define H5 0x9b05688c
-#define H6 0x1f83d9ab
-#define H7 0x5be0cd19
-
 /// Initializes an array of constants: The first 32 bits of the fractional parts of the cube roots of the first 64 primes 2 through 311.
 const uint32_t constants[64] = {
     0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
@@ -57,12 +47,10 @@ void printDigestAsHex(uint32_t* digest){
  * @param digest A poniter to an array of 8 32-bit unsigned words containing the digest to be converted.
  * @param str A pointer to the character buffer where the string will be written. This buffer must be at least 65 bytes long.
  */
-void digest2Hex(uint32_t* digest, char* str){
-    char temp[9] = {0};
+void digestToHex(uint32_t* digest, char* str){
     str[0] = '\0';
     for(int i = 0; i < 8; i++){
-        sprintf(&temp[0], "%08x", digest[i]);
-        strncat(str, &temp[0], 8);
+        sprintf(&str[i*8], "%08x", digest[i]);
     }
 }
 
@@ -72,7 +60,7 @@ void digest2Hex(uint32_t* digest, char* str){
  * @param str A pointer to a 65 byte null terminated character buffer ("string") containing a sha-256 digest in hexidecimal format.
  * @param digest A poniter to an array of 8, 32-bit unsigned words where the digest will be written.
  */
-void hex2Digest(char* str, uint32_t* digest){
+void hexToDigest(char* str, uint32_t* digest){
     char hexstring[9];
     for(int i = 0; i < 8; i++){
         memcpy(&hexstring[0], &str[i * 8], 8);
@@ -99,10 +87,11 @@ bool digestsAreEqual(uint32_t* digest1, uint32_t* digest2){
 /**
  * @brief Calculates a sha-256 hash digest from data in 'buffer' and writes it to 'digest'.
  * 
- * @param buffer A buffer containing the data to be hashed.
+ * @param buffer A pointer to a buffer containing the data to be hashed.
  * @param byteCount The number of bytes in the buffer.
  * @param digest A pointer to an array of 8, 32-bit unsigned words where the digest will be written.
- * @return Returns true on success or false on failure.
+ * @return true if the calculation completed successfully
+ * @return false if the calculation did not complete successfully
  */
 bool calcSHA256(uint8_t* buffer, size_t byteCount, uint32_t* digest){
 
@@ -139,15 +128,16 @@ bool calcSHA256(uint8_t* buffer, size_t byteCount, uint32_t* digest){
     buffTail = (uint64_t*)(&newBuffer[((bitCount - 64) / 8)]);
     *buffTail = __bswap_64(originalBitCount);
 
-    // initialize the digest with the hash value constants
-    digest[0] = H0;
-    digest[1] = H1;
-    digest[2] = H2;
-    digest[3] = H3;
-    digest[4] = H4;
-    digest[5] = H5;
-    digest[6] = H6;
-    digest[7] = H7;
+    // Initialize hash value constants: The first 32 bits of the fractional parts
+    // of th square roots of the first 8 primes 2 through 19.
+    digest[0] = 0x6a09e667;
+    digest[1] = 0xbb67ae85;
+    digest[2] = 0x3c6ef372;
+    digest[3] = 0xa54ff53a;
+    digest[4] = 0x510e527f;
+    digest[5] = 0x9b05688c;
+    digest[6] = 0x1f83d9ab;
+    digest[7] = 0x5be0cd19;
 
     // break the message block into 512-bit chunks. This is the "chunk loop"
     for(size_t ck = 0, chuckCount = bitCount / 512; ck < chuckCount; ck++){

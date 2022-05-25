@@ -16,8 +16,8 @@ extern "C" {
 #endif
 
 void printDigestAsHex(uint32_t* digest);
-void digest2Hex(uint32_t* digest, char* str);
-void hex2Digest(char* str, uint32_t* digest);
+void digestToHex(uint32_t* digest, char* str);
+void hexToDigest(char* str, uint32_t* digest);
 bool digestsAreEqual(uint32_t* digest1, uint32_t* digest2);
 bool calcSHA256(uint8_t* buffer, size_t byteCount, uint32_t* digest);
 

@@ -5,8 +5,8 @@
 | Function | Description |
 |----------|-------------|
 |void printDigestAsHex(uint32_t* digest);|Prints a binary sha-256 digest to stdio in hexidecimal format.|
-|void digest2Hex(uint32_t* digest, char* str);|Converts a binary sha-256 digest into a null terimated string in hexidecimal format.|
-|void hex2Digest(char* str, uint32_t* digest);|Converts a sha-256 digest from  null terminated hexidecimal string format to binary format.|
+|void digestToHex(uint32_t* digest, char* str);|Converts a binary sha-256 digest into a null terimated string in hexidecimal format.|
+|void hexToDigest(char* str, uint32_t* digest);|Converts a sha-256 digest from  null terminated hexidecimal string format to binary format.|
 |bool digestsAreEqual(uint32_t* digest1, uint32_t* digest2);|Compares two binary sha-256 digests for equality.|
 |bool calcSHA256(uint8_t* buffer, size_t byteCount, uint32_t* digest);|Calculates a sha-256 hash digest from data in *buffer* and writes it to *digest*.|
 
@@ -16,6 +16,8 @@ Please note the following before attempting to use *sha256clib* :
 
 * *sha256clib* was not designed or tested for muliprocessing.
 * *sha256clib* was designed for use and tested on *little-endian* machines only.
+* A sha-256 digest is always an array of 8 32-bit integers (for example, *uint32_t digest[8];*)
+* The null terminated hexidecimal string representation of a sha-256 digest is always a array of 64 bytes terminated by an additional null character, for a total of 65 bytes.
 
 ## License
 
