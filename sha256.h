@@ -7,12 +7,6 @@
 #ifndef _SHA_256_C_LIBRARY_
 #define _SHA_256_C_LIBRARY_
 
-/*
-#include <stdlib.h>
-#include <stdint.h>
-#include <stdbool.h>
-*/
-
 // this software is intended for little endian machines only
 #if __BYTE_ORDER != __LITTLE_ENDIAN
 #error Can not compile sha256 library. This is not a little endian machine.
