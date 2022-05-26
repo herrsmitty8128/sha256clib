@@ -4,15 +4,7 @@
 //      (See accompanying file LICENSE.txt or copy at
 //          https://www.boost.org/LICENSE_1_0.txt)
 
-#include <stdio.h>
-#include <string.h>
-#include <byteswap.h>
 #include "sha256.h"
-
-// this software is intended for little endian machines only
-#if __BYTE_ORDER != __LITTLE_ENDIAN
-#error Can not compile sha256 library. This is not a little endian machine.
-#endif
 
 /// Initializes an array of constants: The first 32 bits of the fractional parts of the cube roots of the first 64 primes 2 through 311.
 const uint32_t constants[64] = {
@@ -36,8 +28,7 @@ const uint32_t constants[64] = {
  */
 void printDigestAsHex(uint32_t* digest){
     for(int i = 0; i < 8; i++){
-        uint32_t d = digest[i];
-        printf("%08x", d);
+        printf("%08x", digest[i]);
     }
 }
 
