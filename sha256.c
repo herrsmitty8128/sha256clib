@@ -41,7 +41,7 @@ void printDigestAsHex(uint32_t* digest){
 void digestToHex(uint32_t* digest, char* str){
     str[0] = '\0';
     for(int i = 0; i < 8; i++){
-        sprintf(&str[i*8], "%08x", digest[i]);
+        snprintf(&str[i*8], 9, "%08x", digest[i]);
     }
 }
 
