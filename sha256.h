@@ -13,29 +13,21 @@
 #endif
 
 #ifdef __cplusplus
-#include <cstdlib>
 #include <cstdint>
 #include <cstdbool>
-#include <cstdio>
-#include <cstring>
 extern "C" {
 #endif
 
 #ifndef __cplusplus
-#include <stdlib.h>
 #include <stdint.h>
 #include <stdbool.h>
-#include <stdio.h>
-#include <string.h>
 #endif
-
-#include <byteswap.h>
 
 void printDigestAsHex(uint32_t* digest);
 void digestToHex(uint32_t* digest, char* str);
 void hexToDigest(char* str, uint32_t* digest);
 bool digestsAreEqual(uint32_t* digest1, uint32_t* digest2);
-bool calcSHA256(uint8_t* buffer, size_t byteCount, uint32_t* digest);
+bool calcSHA256(uint8_t* buffer, uint64_t byteCount, uint32_t* digest);
 
 #ifdef __cplusplus
 };

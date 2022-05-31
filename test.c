@@ -7,6 +7,7 @@
 #include "sha256.h"
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 int main(){
 

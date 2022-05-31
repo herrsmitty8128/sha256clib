@@ -4,6 +4,12 @@
 //      (See accompanying file LICENSE.txt or copy at
 //          https://www.boost.org/LICENSE_1_0.txt)
 
+//#include <stdlib.h>
+//#include <stdbool.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <byteswap.h>
 #include "sha256.h"
 
 /// Initializes an array of constants: The first 32 bits of the fractional parts of the cube roots of the first 64 primes 2 through 311.
@@ -84,7 +90,7 @@ bool digestsAreEqual(uint32_t* digest1, uint32_t* digest2){
  * @return true if the calculation completed successfully
  * @return false if the calculation did not complete successfully
  */
-bool calcSHA256(uint8_t* buffer, size_t byteCount, uint32_t* digest){
+bool calcSHA256(uint8_t* buffer, uint64_t byteCount, uint32_t* digest){
 
     uint64_t  originalBitCount, bitCount;
     uint64_t* buffTail;
