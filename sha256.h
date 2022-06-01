@@ -14,7 +14,6 @@
 
 #ifdef __cplusplus
 #include <cstdint>
-#include <cstdbool>
 extern "C" {
 #endif
 

@@ -4,8 +4,6 @@
 //      (See accompanying file LICENSE.txt or copy at
 //          https://www.boost.org/LICENSE_1_0.txt)
 
-//#include <stdlib.h>
-//#include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
