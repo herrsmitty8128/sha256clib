@@ -8,26 +8,33 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-
 #define BUFF_SIZE 1024
 
 int main(int nargs, char** args){
 
-    char file_name[BUFF_SIZE];
+    char file_name[BUFF_SIZE] = {'\0'};
     uint32_t digest[8];
 
     if(nargs <= 1){ /* no args were passed */
         printf("Please enter a file name and path: ");
         fflush(stdout);
-        read(STDIN_FILENO, file_name, BUFF_SIZE);
-        int len = strnlen(file_name, BUFF_SIZE);
-        for(int i = 0; i < len; i++){
-            if(file_name[i] == 0x0a || file_name[i] == 0x0d) file_name[i] = '\0';
+        if(fgets(file_name, BUFF_SIZE-1, stdin)==NULL){
+            printf("Error reading from stdin\n");
+            return EXIT_FAILURE;
+        }
+        for(int i = 0; i < BUFF_SIZE-1; i++){
+            if(file_name[i] == 0x0a || file_name[i] == 0x0d || file_name[i] == '\0'){
+                file_name[i] = '\0';
+                break;
+            }
         }
     }
-    else{     /* at lease one arg was passed */
-        strncpy(file_name, args[nargs - 1], BUFF_SIZE);
+    else{     /* at least one arg was passed */
+        char* arg = args[nargs-1];
+        for(int i = 0; i < BUFF_SIZE-1; i++){
+            file_name[i] = arg[i];
+            if(arg[i] == '\0') break;
+        }
     }
 
     if(sha256_fileToDigest(file_name, digest)){
@@ -36,7 +43,7 @@ int main(int nargs, char** args){
         return EXIT_SUCCESS;
     }
     
-    printf("Error calculating sha256 digest.\n");
+    printf("Error calculating sha256 digest\n");
     
     return EXIT_FAILURE;
 }
