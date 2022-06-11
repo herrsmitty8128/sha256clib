@@ -1,6 +1,5 @@
 objects = calcsha256.o
 libpath = ./lib/
-exepath = ./
 
 calcsha256 : $(objects) sha256.so
 	gcc -Wall -O3 -o $(exepath)calcsha256 calcsha256.o -Llib$(libpath) -Wl,-rpath,$(libpath) $(libpath)sha256.so
