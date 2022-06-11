@@ -20,6 +20,10 @@ Please note the following before attempting to use *sha256clib* :
 * A sha-256 digest is always an array of 8 32-bit integers (for example, *uint32_t digest[8];*)
 * The null terminated hexidecimal string representation of a sha-256 digest is always an array of 64 bytes terminated by an additional null character, for a total of 65 bytes.
 
+## Building and Running
+
+The accompanying *makefile* is designed to build a shared library on Linux. You can modify the location of the shared library by changing the *libpath* variable on the second line of the *makefile*. It also generates an executable called *calcsha256*, which calculates a digest from a file path provided as a command line argument similar to *sha256sum*.
+
 ## License
 
 *sha256clib* is licensed under the Boost Software License - Version 1.0 - August 17th, 2003.
