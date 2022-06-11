@@ -4,11 +4,12 @@
 
 | Function | Description |
 |----------|-------------|
-|void printDigestAsHex(uint32_t* digest);|Prints a binary sha-256 digest to stdio in hexidecimal format.|
-|void digestToHex(uint32_t* digest, char* str);|Converts a binary sha-256 digest into a null terimated string in hexidecimal format.|
-|void hexToDigest(char* str, uint32_t* digest);|Converts a sha-256 digest from  null terminated hexidecimal string format to binary format.|
-|bool digestsAreEqual(uint32_t* digest1, uint32_t* digest2);|Compares two binary sha-256 digests for equality.|
-|bool calcSHA256(uint8_t* buffer, size_t byteCount, uint32_t* digest);|Calculates a sha-256 hash digest from data in *buffer* and writes it to *digest*.|
+|void sha256_printDigestAsHex(uint32_t* digest);|Prints a binary sha-256 digest to stdio in hexidecimal format.|
+|void sha256_digestToHex(uint32_t* digest, char* str);|Converts a binary sha-256 digest into a null terimated string in hexidecimal format.|
+|void sha256_hexToDigest(char* str, uint32_t* digest);|Converts a sha-256 digest from a null terminated hexidecimal string into binary format.|
+|bool sha256_digestsAreEqual(uint32_t* digest1, uint32_t* digest2);|Compares two binary sha-256 digests for equality.|
+|bool sha256_binToDigest(uint8_t* buffer, size_t byteCount, uint32_t* digest);|Calculates a sha-256 digest from data in *buffer* and writes it to *digest*.|
+|bool sha256_fileToDigest(FILE* f, uint32_t* digest);|Calculates a sha-256 hash digest from a file and writes it to *digest*.|
 
 ## Notes
 
