@@ -10,8 +10,8 @@
 #include <byteswap.h>
 #include "sha256.h"
 
-/// Initializes an array of constants: The first 32 bits of the fractional parts of the cube roots of the first 64 primes 2 through 311.
-const uint32_t constants[64] = {
+/// Initializes an array of sha256_constants: The first 32 bits of the fractional parts of the cube roots of the first 64 primes 2 through 311.
+const uint32_t sha256_constants[64] = {
     0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
     0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
     0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
@@ -25,20 +25,20 @@ const uint32_t constants[64] = {
 /// rotate a 32-bit integer right by n bits
 #define ROR32(N,BITS) ((N >> BITS)|(N << (32 - BITS)))
 
-void printDigestAsHex(uint32_t* digest){
+void sha256_printDigestAsHex(uint32_t* digest){
     for(int i = 0; i < 8; i++){
         printf("%08x", digest[i]);
     }
 }
 
-void digestToHex(uint32_t* digest, char* str){
+void sha256_digestToHex(uint32_t* digest, char* str){
     str[0] = '\0';
     for(int i = 0; i < 8; i++){
         snprintf(&str[i*8], 9, "%08x", digest[i]);
     }
 }
 
-void hexToDigest(char* str, uint32_t* digest){
+void sha256_hexToDigest(char* str, uint32_t* digest){
     char hexstring[9];
     for(int i = 0; i < 8; i++){
         memcpy(&hexstring[0], &str[i * 8], 8);
@@ -47,14 +47,14 @@ void hexToDigest(char* str, uint32_t* digest){
     }
 }
 
-bool digestsAreEqual(uint32_t* digest1, uint32_t* digest2){
+bool sha256_digestsAreEqual(uint32_t* digest1, uint32_t* digest2){
     for(int i = 0; i < 8; i++){
         if(digest1[i] != digest2[i]) return false;
     }
     return true;
 }
 
-bool calcSHA256(uint8_t* buffer, uint64_t byteCount, uint32_t* digest){
+bool sha256_binToDigest(uint8_t* buffer, uint64_t byteCount, uint32_t* digest){
 
     uint64_t  originalBitCount, bitCount;
     uint64_t* buffTail;
@@ -89,7 +89,7 @@ bool calcSHA256(uint8_t* buffer, uint64_t byteCount, uint32_t* digest){
     buffTail = (uint64_t*)(&newBuffer[((bitCount - 64) / 8)]);
     *buffTail = __bswap_64(originalBitCount);
 
-    // Initialize hash value constants: The first 32 bits of the fractional parts
+    // Initialize hash value sha256_constants: The first 32 bits of the fractional parts
     // of th square roots of the first 8 primes 2 through 19.
     digest[0] = 0x6a09e667;
     digest[1] = 0xbb67ae85;
@@ -140,7 +140,7 @@ bool calcSHA256(uint8_t* buffer, uint64_t byteCount, uint32_t* digest){
             sigma1 = ROR32(e,6) ^ ROR32(e,11) ^ ROR32(e,25);
             choice = (e & f) ^ ((~e) & g);
             majority = (a & b) ^ (a & c) ^ (b & c);
-            temp1 = h + sigma1 + choice + constants[i] + msg_schedule[i];
+            temp1 = h + sigma1 + choice + sha256_constants[i] + msg_schedule[i];
             temp2 = sigma0 + majority;
             // update working variables
             h = g;
@@ -166,4 +166,22 @@ bool calcSHA256(uint8_t* buffer, uint64_t byteCount, uint32_t* digest){
 
     free(newBuffer);
     return true;
+}
+
+bool sha256_fileToDigest(const char* fileName, uint32_t* digest){
+    FILE* f = fopen(fileName,"rb");
+    if(!f) return false;
+    fseek(f, 0, SEEK_END);
+    size_t size = ftell(f);
+    fseek(f, 0, SEEK_SET);
+    uint8_t* message = (uint8_t*)malloc(size);
+    if(!message){
+        fclose(f);
+        return false;
+    }
+    fread(message, 1, size, f);
+    fclose(f);
+    bool retval = sha256_binToDigest(message, size, digest);
+    free(message);
+    return retval;
 }
