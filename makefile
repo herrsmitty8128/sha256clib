@@ -1,11 +1,12 @@
-objects = sha256.o calcsha256.o
+objects = calcsha256.o
+libpath = ~/Documents/Projects/sha256clib
 
-calcsha256 : $(objects)
-	gcc -Wall -o calcsha256 $(objects) -O3
+calcsha256 : $(objects) sha256.so
+	gcc -Wall -O3 -o calcsha256 calcsha256.o -Llib./ -Wl,-rpath,./ sha256.so
 	make clean
 
-sha256.o : sha256.c sha256.h
-	gcc -Wall -c sha256.c -O3
+sha256.so : sha256.c sha256.h
+	gcc -fPIC -shared -Wall -Werror -Wextra -O3 sha256.c -o sha256.so
 
 calcsha256.o : calcsha256.c
 	gcc -Wall -c calcsha256.c -O3
