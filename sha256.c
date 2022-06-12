@@ -169,6 +169,7 @@ bool sha256_binToDigest(uint8_t* buffer, uint64_t byteCount, uint32_t* digest){
 }
 
 bool sha256_fileToDigest(const char* fileName, uint32_t* digest){
+    bool result = false;
     FILE* f = fopen(fileName,"rb");
     if(f){
         fseek(f, 0, SEEK_END);
@@ -177,11 +178,11 @@ bool sha256_fileToDigest(const char* fileName, uint32_t* digest){
         uint8_t* message = (uint8_t*)malloc(size);
         if(message){
             if(fread(message, 1, size, f) == size){
-                return sha256_binToDigest(message, size, digest);
+                result =  sha256_binToDigest(message, size, digest);
             }
             free(message);
         }
         fclose(f);
     }
-    return false;
+    return result;
 }

@@ -1,6 +1,6 @@
 # sha256clib
 
-*sha256clib* is a library of functions written in C to calculate and manipulate SHA-256 digests. It includes the followings:
+*sha256clib* is a library of functions written in C to calculate and manipulate SHA-256 digests. It includes the following:
 
 | Function | Description |
 |----------|-------------|
